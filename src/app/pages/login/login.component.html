@@ -1,0 +1,19 @@
+<form [formGroup]="userCredentials" (ngSubmit)="login()">
+    <input type="email" formControlName="email" required email autocomplete="false"
+           spellcheck="false"
+           [placeholder]="translateService.instant('LOGIN.email')">
+    <input type="password" formControlName="password" required autocomplete="false"
+           spellcheck="false"
+           [placeholder]="translateService.instant('LOGIN.password')">
+    <span *ngIf="errMessage">Wrong email or password</span>
+
+        <select (change)="changeLang($event);" formControlName="lang">
+            <option [value]="lang" [title]="'Language: ' + lang.value" *ngFor="let lang of translateHelperService.availableLangsValues">
+                {{lang}}
+            </option>
+        </select>
+    <button type="submit"
+            [disabled]="!userCredentials.valid">
+        <span>{{'LOGIN.login'| translate}}</span>
+    </button>
+</form>
